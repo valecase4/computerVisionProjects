@@ -9,3 +9,5 @@ Features:
 - The program visually represents the three points, the line passing through the first two points, the distance segment between the line equation and the point
 - The program calculates the value of the distance from the line passing through the first two points to the point and shows this value in the graph legend
 - The program is tested with Shapely Python framework
+
+Look at screenshots directory to see how the program works and what's the output
