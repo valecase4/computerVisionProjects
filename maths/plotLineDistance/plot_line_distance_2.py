@@ -26,7 +26,6 @@ class PointLineDistance:
         else:
             self.ang_coeff = (self.p2[1] - self.p1[1]) / (self.p2[0] - self.p1[0])
             self.y_intercept = self.p2[1] - self.ang_coeff * self.p2[0]
-
         
 
     def calculate_distance(self) -> float:
@@ -35,8 +34,8 @@ class PointLineDistance:
         elif self.p1[1] == self.p2[1]:
             distance = abs(self.p[1] - self.p1[1])
         else:
-            numerator = abs(self.ang_coeff * self.p[0] + (-1) * self.p[1] + self.y_intercept)
-            denominator = math.sqrt(self.ang_coeff**2 + (-1)**2)
+            numerator = abs(self.ang_coeff * self.p[0] - self.p[1] + self.y_intercept)
+            denominator = math.sqrt((self.ang_coeff)**2 + 1)
 
             distance = numerator / denominator
 
@@ -44,22 +43,9 @@ class PointLineDistance:
 
     def plot(self) -> None:
         if self.ang_coeff and self.ang_coeff != 0:
-            x_values = list(np.arange(self.p1[0] - 3, self.p2[0] + 3, 0.01))
-            y_values = []
-
-            for x in x_values:
-                y = self.ang_coeff * x + self.y_intercept
-                y_values.append(y)
 
             self.perp_ang_coeff = - (1 / self.ang_coeff)
             self.perp_y_intercept = self.p[1] - self.perp_ang_coeff * self.p[0]
-
-            x_values_2 = list(np.arange(self.p1[0] - 3, self.p2[0] + 3, 0.01))
-            y_values_2 = []
-
-            for x in x_values_2:
-                y = self.perp_ang_coeff * x + self.perp_y_intercept
-                y_values_2.append(y)
 
             # FINDING INTERSECTION POINT
 
@@ -68,6 +54,30 @@ class PointLineDistance:
 
             self.int_point = np.linalg.solve(A, B)
 
+            print("Diagonal Line")
+
+            if self.int_point[0] > self.p2[0]:
+                x_values = list(np.arange(self.p1[0] - 3, self.int_point[0] + 3, 0.01))
+                x_values_2 = list(np.arange(self.p1[0] - 3, self.p[0] + 3, 0.01))
+            elif self.int_point[0] < self.p1[0]:
+                x_values = list(np.arange(self.int_point[0] - 3, self.p2[0] + 3, 0.01))
+                x_values_2 = list(np.arange(self.p[0] - 3, self.p2[0] + 3, 0.01))
+            else:
+                x_values = list(np.arange(self.p1[0] - 3, self.p2[0] + 3, 0.01))
+                x_values_2 = x_values
+            
+            y_values = []
+
+            for x in x_values:
+                y = self.ang_coeff * x + self.y_intercept
+                y_values.append(y)
+                
+            y_values_2 = []
+
+            for x in x_values_2:
+                y = self.perp_ang_coeff * x + self.perp_y_intercept
+                y_values_2.append(y)
+                
             plt.figure(figsize=(7,7))
 
             plt.plot(x_values, y_values, 'r--')
