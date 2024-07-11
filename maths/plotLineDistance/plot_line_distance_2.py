@@ -110,8 +110,6 @@ class PointLineDistance:
 
             plt.figure(figsize=(7,7))
 
-            upper_point = self.p2 if self.p2[1] > self.p1[1] else self.p1
-
             if self.p[1] > self.upper_point[1]:
                 plt.plot([self.p1[0], self.p1[0]], [self.upper_point[1], self.p[1] + 3], 'r--')
             elif self.p[1] < self.lower_point[1]:
