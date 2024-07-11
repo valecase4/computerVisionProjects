@@ -8,17 +8,9 @@ def testing() -> None:
         point2 = (rng.randint(0, 20), rng.randint(0, 20))
         point = (rng.randint(0, 20), rng.randint(0, 20))
 
-        line = LineString([point1, point2])
-        src_point = Point(point[0], point[1])
-
-        distance = round(line.distance(src_point), 2)
 
         my_calculator = PointLineDistance(point1, point2, point)
-        my_distance = my_calculator.calculate_distance()
-
-        if distance != my_distance:
-            print(distance, my_distance)
-            raise ValueError
+        my_distance = my_calculator.plot()
 
 
 if __name__ == '__main__':

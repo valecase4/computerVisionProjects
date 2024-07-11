@@ -54,8 +54,6 @@ class PointLineDistance:
 
             self.int_point = np.linalg.solve(A, B)
 
-            print("Diagonal Line")
-
             if self.int_point[0] > self.p2[0]:
                 x_values = list(np.arange(self.p1[0] - 3, self.int_point[0] + 3, 0.01))
                 x_values_2 = list(np.arange(self.p1[0] - 3, self.p[0] + 3, 0.01))
@@ -84,7 +82,6 @@ class PointLineDistance:
             plt.plot(x_values_2, y_values_2, 'b--')
             
         elif self.ang_coeff == 0:
-            print("Horizontal Line")
             if self.p1[1] < self.p[1]:
                 y_values = np.array(np.arange(self.p1[1] - 3, self.p[1] + 3, 0.01))
             else:
@@ -103,7 +100,6 @@ class PointLineDistance:
             plt.plot(x_values, y_values, 'b--')
         
         else:
-            print("Vertical Line")
             if self.p[0] > self.p1[0]:
                 x_values = np.arange(self.p1[0] - 3, self.p[0] + 3, 0.01)
             else: 
