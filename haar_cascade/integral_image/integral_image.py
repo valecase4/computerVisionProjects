@@ -42,9 +42,6 @@ class IntegralImage:
             cv.putText(self.source_img, f"{self.integral_images[point]}", (point[0]-80, point[1]-10), cv.FONT_HERSHEY_SIMPLEX, 0.5,(0,0,0), 2)
 
     def main(self) -> float:
-        self.draw()
-        self.compute_sums()
-
         A = self.integral_images[self.upper_left]
         B = self.integral_images[self.upper_right]
         C = self.integral_images[self.bottom_left]
@@ -52,10 +49,14 @@ class IntegralImage:
 
         integral_image = float(D + A - (B + C))
 
+        return integral_image
+    
+    def show(self) -> None:
+        self.draw()
+        self.compute_sums()
+
         cv.imshow("Integral Image", self.source_img)
         cv.waitKey()
-
-        return integral_image
 
 
 file_path = "lena.jpg"
@@ -63,6 +64,7 @@ input_image = cv.imread(file_path)
 
 if __name__ == '__main__':
     integral_image = IntegralImage(input_image, given_rectangle)
+    integral_image.show()
     output = integral_image.main()
     
     print(f"Sum of pixels within the given rectangle: {output}")
